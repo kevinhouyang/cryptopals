@@ -36,6 +36,17 @@ int hex_to_int(char c) {
     }
 }
 
+char int_to_hex(int i)
+{
+    if (i >= 0 && i <= 9) {
+        return i + '0';
+    } else if (i >= 10 && i <= 15) {
+        return i + 'a' - 10;
+    } else {
+        return -1;
+    }
+}
+
 char int_to_base64(int i) {
     if (i >= 0 && i <= 25) {
         return i + 'A';
