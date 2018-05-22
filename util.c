@@ -81,6 +81,7 @@ void single_byte_xor(char byte, char * dest, char * src, size_t len)
 	for (size_t i = 0; i < len; i++)
 		dest[i] = xor(byte, src[i]);
 }
+
 /*
  * "score" a string for likelihood it's English text. higher scores are
  * more likely (maybe?).
@@ -88,14 +89,16 @@ void single_byte_xor(char byte, char * dest, char * src, size_t len)
 int score_english_plaintext(char *str) {
 	int score = 0;
 	for (size_t i = 0; i < SSIZE_MAX && str[i] != '\0'; i++) {
-		if (iscntrl(str[i]))
-			score -= 20;
-		else if (isalpha(str[i]))
-			score += 10;
+		if (!isprint(str[i]) || iscntrl(str[i]))
+			score = MIN(score, score - 20);
+		else if (islower(str[i]))
+			score = MAX(score, score + 20);
+		else if (isupper(str[i]))
+			score = MAX(score, score + 10);
 		else if (isdigit(str[i]))
-			score += 5;
+			score = MAX(score, score + 5);
 		else if (ispunct(str[i]))
-			score += 1;
+			score = MIN(score, score - 1);
 	}
 	return score;
 }
