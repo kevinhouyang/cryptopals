@@ -1,3 +1,5 @@
+#include "util.h"
+
 char hex_to_int(char);
 char int_to_base64(int);
 
@@ -36,6 +38,16 @@ char hex_to_int(char c) {
 	}
 }
 
+void hex_to_bytes(char * dest, char * src, size_t len)
+{
+	char a, b;
+	for (size_t i = 0; i < len; i += 2) {
+		a = hex_to_int(src[i]);
+		b = hex_to_int(src[i + 1]);
+		dest[i / 2] = a << 4 | b;
+	}
+}
+
 char int_to_hex(int i)
 {
 	if (i >= 0 && i <= 9) {
@@ -62,4 +74,28 @@ char int_to_base64(int i) {
 long long xor(long long a, long long b)
 {
 	return ~(a & b) & (a | b);
+}
+
+void single_byte_xor(char byte, char * dest, char * src, size_t len)
+{
+	for (size_t i = 0; i < len; i++)
+		dest[i] = xor(byte, src[i]);
+}
+/*
+ * "score" a string for likelihood it's English text. higher scores are
+ * more likely (maybe?).
+ */
+int score_english_plaintext(char *str) {
+	int score = 0;
+	for (size_t i = 0; i < SSIZE_MAX && str[i] != '\0'; i++) {
+		if (iscntrl(str[i]))
+			score -= 20;
+		else if (isalpha(str[i]))
+			score += 10;
+		else if (isdigit(str[i]))
+			score += 5;
+		else if (ispunct(str[i]))
+			score += 1;
+	}
+	return score;
 }
