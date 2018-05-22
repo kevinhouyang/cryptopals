@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "base64.h"
+#include "util.h"
 
 int xor_int(int, int);
 

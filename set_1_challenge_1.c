@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "base64.h"
+#include "util.h"
 
 int main(int argc, char ** argv) {
     if (argc != 2) {
