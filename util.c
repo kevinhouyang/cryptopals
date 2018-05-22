@@ -1,4 +1,4 @@
-int hex_to_int(char);
+char hex_to_int(char);
 char int_to_base64(int);
 
 void hex_to_base64(char *dest, char *in) {
@@ -24,7 +24,7 @@ void hex_to_base64(char *dest, char *in) {
 	return;
 }
 
-int hex_to_int(char c) {
+char hex_to_int(char c) {
 	if (c >= '0' && c <= '9') {
 		return c - '0';
 	} else if (c >= 'a' && c <= 'z') {
@@ -57,4 +57,9 @@ char int_to_base64(int i) {
 	} else {
 		return -1;
 	}
+}
+
+long long xor(long long a, long long b)
+{
+	return ~(a & b) & (a | b);
 }
