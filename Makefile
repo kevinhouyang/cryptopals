@@ -1,29 +1,17 @@
-LIBS = util.c
-EXES = set_1_challenge_1 set_1_challenge_2 set_1_challenge_3 set_1_challenge_5 set_1_challenge_6
+EXES = xor_test
 CFLAGS = -Wextra -Wpedantic
 LDFLAGS = -lm
+UTILS = util.c util.h
+LIBS = util.c
+OPENSSLPATH = -I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib
 
-all: set_1
+all: test
 
-set_1: set_1_challenge_1 set_1_challenge_2 set_1_challenge_3 set_1_challenge_4 set_1_challenge_5 set_1_challenge_6
+test: xor_test.c ${UTILS}
+	${CC} ${CFLAGS} ${LDFLAGS} ${LIBS} $< -o $@
 
-set_1_challenge_1: set_1_challenge_1.c util.c util.h
-	${CC} ${CFLAGS} ${LDFLAGS} $< ${LIBS} -o $@
-
-set_1_challenge_2: set_1_challenge_2.c util.c util.h
-	${CC} ${CFLAGS} ${LDFLAGS} $< ${LIBS} -o $@
-
-set_1_challenge_3: set_1_challenge_3.c util.c util.h
-	${CC} ${CFLAGS} ${LDFLAGS} $< ${LIBS} -o $@
-
-set_1_challenge_4: set_1_challenge_3
-	@echo nothing to compile for $@
-
-set_1_challenge_5: set_1_challenge_5.c util.c util.h
-	${CC} ${CFLAGS} ${LDFLAGS} $< ${LIBS} -o $@
-
-set_1_challenge_6: set_1_challenge_6.c util.c util.h
-	${CC} ${CFLAGS} ${LDFLAGS} $< ${LIBS} -o $@
+junk: test.c
+	${CC} ${CFLAGS} ${LDFLAGS} ${LIBS} $< -o $@
 
 clean:
 	rm -f ${EXES}

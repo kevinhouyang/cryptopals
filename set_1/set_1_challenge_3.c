@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "util.h"
+#include "../util.h"
 
 int main(int argc, char ** argv)
 {

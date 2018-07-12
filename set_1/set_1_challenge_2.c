@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "util.h"
+#include "../util.h"
 
 int main(int argc, char ** argv)
 {
@@ -12,8 +12,7 @@ int main(int argc, char ** argv)
 	char *input_a = argv[1];
 	char *input_b = argv[2];
 	size_t len_a = strlen(input_a);
-	size_t len_b = strlen(input_b);
-	if (len_a != len_b) {
+	if (len_a != strlen(input_b)) {
 		printf("error: strings are not the same length");
 		return EXIT_FAILURE;
 	}
